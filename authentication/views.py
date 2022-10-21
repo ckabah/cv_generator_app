@@ -49,7 +49,7 @@ def account_activation(request, uidb64, token):
         return HttpResponse('Your account is active now', status=200)
     else:
         return HttpResponse('Your link is invalid', status=404)
-    
+        
 class LoginView(views.LoginView):
     form_class = LoginForm
     template_name = 'login.html'
