@@ -24,7 +24,7 @@ class AcountManager(BaseUserManager):
 
 class User(AbstractBaseUser):
     email = models.EmailField(unique = True)
-    user_name = models.CharField(max_length = 50)
+    user_name = models.CharField(unique=True, max_length = 50)
     date_joined = models.DateTimeField(default = timezone.now)
     last_login = models.DateTimeField(null=True)
     is_active = models.BooleanField(default=False)
