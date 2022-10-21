@@ -49,10 +49,6 @@ class AuthTest(TestCase):
         self.assertTrue(user.is_active)
 
     def test_login_view(self):
-        # response = self.client.post(reverse('login'), data={'email':'c.ttrx@gmail.com','password':'coull1515fdf'})
-        # self.assertNotEqual(str(response.context['user']), 'csttrx' )
-        # response = self.client.post(reverse('login'), data={'email':'coul@gmail.com','password':'godejeroien583'})
-        # self.assertEqual(str(response.context['user']), 'cscoul' )
-        self.assertTrue(self.superuser.is_active)
-        login = self.client.login(email = self.superuser.email, password = self.superuser.password)
-        #self.assertTrue(login)
+        response = self.client.post(reverse('login'), data={'email':'coul@gmail.com','password':'godejeroien583'})
+        self.assertEqual(response.status_code, 200 )
+        # ...

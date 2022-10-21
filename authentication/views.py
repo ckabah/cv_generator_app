@@ -49,7 +49,18 @@ def account_activation(request, uidb64, token):
         return HttpResponse('Your account is active now', status=200)
     else:
         return HttpResponse('Your link is invalid', status=404)
-        
-class LoginView(views.LoginView):
-    form_class = LoginForm
-    template_name = 'login.html'
+    
+def login(request):
+    login_form = LoginForm()
+    if request.method == 'POST':
+        if login_form.is_valid():
+            login_form = LoginForm(request.POST)
+            user_email = login_form.cleaned_data['email']
+            user_password = login_form.cleaned_data['password']
+            authenticated_user = authenticate(request, email=user_email, password=user_password)
+            if authenticated_user is not None and authenticated_user.is_active:
+                login(request, authenticated_user)
+                return HttpResponse('Success!', status=200)
+            else:
+                return HttpResponse('Please confirm your account and try again', status=404)
+    return render(request, 'login.html', context={'login_form':login_form})
