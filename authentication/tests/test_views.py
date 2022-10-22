@@ -1,8 +1,7 @@
-from urllib import response
 from django.test import TestCase
 from django.urls import reverse
-from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
-from django.utils.encoding import force_bytes, force_str
+from django.utils.http import urlsafe_base64_encode
+from django.utils.encoding import force_bytes
 from authentication.models import User
 from ..utilitis import account_token_generation
 
@@ -49,6 +48,10 @@ class AuthTest(TestCase):
         self.assertTrue(user.is_active)
 
     def test_login_view(self):
+        response = self.client.post(reverse('login'), data={'email':'cs.ttrx@gmail.com','password':'coull1515fdf'})
+        self.assertEqual(response.status_code, 404 ) # will for account acctivation
         response = self.client.post(reverse('login'), data={'email':'coul@gmail.com','password':'godejeroien583'})
-        self.assertEqual(response.status_code, 200 )
-        # ...
+        self.assertEqual(response.status_code, 200 ) # superuser have a active account, so test will be successfully
+        self.assertEqual(str(response.context['user']), 'cscoul')# logged user name
+        login = self.client.login(user_name='coul@gmail.com', password = 'godejeroien583') # user name field is user_name
+        self.assertTrue(login)

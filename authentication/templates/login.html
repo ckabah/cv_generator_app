@@ -2,7 +2,7 @@
 
 {% block content %}
     <form method='POST'>
-        {{form.as_p}}
+        {{login_form.as_p}}
         <button type = 'submit'>Log in</button>
         {% csrf_token %}
     </form>

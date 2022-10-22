@@ -50,17 +50,18 @@ def account_activation(request, uidb64, token):
     else:
         return HttpResponse('Your link is invalid', status=404)
     
-def login(request):
+def login_view(request):
     login_form = LoginForm()
     if request.method == 'POST':
+        login_form = LoginForm(request.POST)
         if login_form.is_valid():
-            login_form = LoginForm(request.POST)
             user_email = login_form.cleaned_data['email']
             user_password = login_form.cleaned_data['password']
-            authenticated_user = authenticate(request, email=user_email, password=user_password)
+            #user name field is user_name is custom EmailBackend
+            authenticated_user = authenticate(request, user_name=user_email, password=user_password) 
             if authenticated_user is not None and authenticated_user.is_active:
                 login(request, authenticated_user)
-                return HttpResponse('Success!', status=200)
+                #return HttpResponse('Success!', status=200)
             else:
                 return HttpResponse('Please confirm your account and try again', status=404)
     return render(request, 'login.html', context={'login_form':login_form})
