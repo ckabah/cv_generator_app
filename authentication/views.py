@@ -1,4 +1,3 @@
-import email
 from django.http import HttpResponse
 from django.shortcuts import render
 from .forms import LoginForm, UserCreationForm
@@ -9,7 +8,9 @@ from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from .utilitis import account_token_generation
 from django.contrib.sites.shortcuts import get_current_site
 from .models import User
-from django.contrib.auth import login, authenticate,views
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.forms import PasswordResetForm
+from django.contrib.auth.tokens import default_token_generator
 
 def register(request):
     register_form = UserCreationForm()
@@ -65,3 +66,26 @@ def login_view(request):
             else:
                 return HttpResponse('Please confirm your account and try again', status=404)
     return render(request, 'login.html', context={'login_form':login_form})
+
+def reset_password(request):
+    reset_form = PasswordResetForm(request.POST)
+    if request.method == 'POST':
+        reset_form = PasswordResetForm(request.POST)
+        if reset_form.is_valid():
+            user_email = reset_form.cleaned_data['email']
+            users = User.objects.filter(email=user_email)
+            if users.exists():
+                user = users[0]
+                subject = 'Password reset'
+                message = render_to_string('password_reset_request.html', {
+                    'user':user,
+                    'domain':get_current_site(request),
+                    'site-name':'gencv',
+                    'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                    'token':default_token_generator.make_token(user)
+                })
+                try:
+                    send_mail(subject=subject, message=message, from_email='cs.ttrx@gmail.com', recipient_list=user_email)
+                except:
+                    pass
+    return render(request, 'reset_password.html', context={'reset_form':reset_form})

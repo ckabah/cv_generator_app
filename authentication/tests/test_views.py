@@ -1,10 +1,11 @@
+from cgitb import reset
 from django.test import TestCase
 from django.urls import reverse
 from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
 from authentication.models import User
 from ..utilitis import account_token_generation
-
+from django.contrib.auth.tokens import default_token_generator
 
 class AuthTest(TestCase):
     
@@ -54,4 +55,25 @@ class AuthTest(TestCase):
         self.assertEqual(response.status_code, 200 ) # superuser have a active account, so test will be successfully
         self.assertEqual(str(response.context['user']), 'cscoul')# logged user name
         login = self.client.login(user_name='coul@gmail.com', password = 'godejeroien583') # user name field is user_name
+        self.assertTrue(login)
+
+    def test_password_reset_viwew(self):
+        response = self.client.post(reverse('password_reset'), data={'email':'coul@gmail.com'})
+        self.assertEqual(response.status_code, 200)
+    
+    def test_password_reset_confirm_view(self):
+        uid = urlsafe_base64_encode(force_bytes(self.superuser.pk))
+        token = default_token_generator.make_token(self.superuser)
+        response = self.client.post(reverse('password_reset_confirm', args=[uid, token]), data={
+                                            'new_password1':'tejzoiej57', 
+                                            'new_password2':'tejzoiej57'})
+        self.assertEqual(response.status_code, 302)
+        response = self.client.post(response.url, data={
+                                            'new_password1':'tejzoiej57', 
+                                            'new_password2':'tejzoiej57'})
+
+        self.assertRedirects(response, reverse('password_reset_complete'))
+        login = self.client.login(user_name='coul@gmail.com', password = 'godejeroien583')
+        self.assertFalse(login)
+        login = self.client.login(user_name='coul@gmail.com', password = 'tejzoiej57')
         self.assertTrue(login)
