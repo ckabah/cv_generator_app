@@ -4,7 +4,7 @@ from authentication.models import User
 class UserModelTest(TestCase):
 
     @classmethod
-    def setUpTestData(self):
+    def setUpTestData(cls):
         User.objects.create_user(email='cs.ttrx@gmail.com', user_name='csttrx', password='coull1515fdf')
         User.objects.create_superuser('coul@gmail.com', user_name='cscoul', password='godejeroien583')
 
