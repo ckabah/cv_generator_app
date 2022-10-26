@@ -52,8 +52,8 @@ class AuthTest(TestCase):
         response = self.client.post(reverse('login'), data={'email':'cs.ttrx@gmail.com','password':'coull1515fdf'})
         self.assertEqual(response.status_code, 404 ) # will for account acctivation
         response = self.client.post(reverse('login'), data={'email':'coul@gmail.com','password':'godejeroien583'})
-        self.assertEqual(response.status_code, 200 ) # superuser have a active account, so test will be successfully
-        self.assertEqual(str(response.context['user']), 'cscoul')# logged user name
+        self.assertEqual(response.status_code, 302 ) # superuser have a active account, so test will be successfully
+        self.assertEqual(response.url, reverse('dashbord'))# logged user name
         login = self.client.login(user_name='coul@gmail.com', password = 'godejeroien583') # user name field is user_name
         self.assertTrue(login)
 
