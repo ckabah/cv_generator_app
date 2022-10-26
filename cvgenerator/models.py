@@ -7,7 +7,7 @@ class Profile(models.Model):
     photo = models.ImageField(null=True, blank=True, verbose_name="photo de profile",upload_to='profile')
     first_name = models.CharField(max_length=120)
     last_name = models.CharField(max_length=120)
-    phone = models.CharField(max_length=68, blank=True, null = True)
+    phone = models.CharField(max_length=17, blank=True, null = True)
     adress = models.CharField(max_length=250, blank=True, null = True)
     email = models.EmailField()
     bio = models.TextField()
@@ -30,9 +30,9 @@ class Profile(models.Model):
 class Education(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=120)
-    level = models.CharField(max_length=120, blank=True, verbose_name="Niveau de formation")
-    description = models.CharField(max_length=5000)
-    etablisement = models.CharField(max_length=500)
+    level = models.CharField(max_length=20, blank=True, verbose_name="Niveau de formation")
+    description = models.CharField(max_length=2000)
+    etablisement = models.CharField(max_length=250)
     start_at = models.DateField(verbose_name='Start date ', null=True, blank=True)
     end_at = models.DateField(verbose_name='End date' , null=True, blank=True)
     etab_website = models.URLField(blank=True, null=True)
@@ -41,7 +41,7 @@ class ProfExperience(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     type = models.CharField(max_length=120)
     description = models.CharField(max_length=2000)
-    company = models.CharField(max_length=500)
+    company = models.CharField(max_length=250)
     poste = models.CharField(max_length=120, blank=True, verbose_name="Niveau de formation")
     start_at = models.DateField(verbose_name='Start date ', null=True, blank=True)
     end_at = models.DateField(verbose_name='End date' , null=True, blank=True)
@@ -50,7 +50,7 @@ class ProfExperience(models.Model):
 class Project(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=120)
-    detail = models.TextField()
+    detail = models.TextField(max_length= 2000)
 
 class Skill(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

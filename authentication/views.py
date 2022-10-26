@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .forms import LoginForm, UserCreationForm
 from django.core.mail import send_mail
 from django.utils.encoding import force_bytes, force_str
@@ -62,7 +62,7 @@ def login_view(request):
             authenticated_user = authenticate(request, user_name=user_email, password=user_password) 
             if authenticated_user is not None and authenticated_user.is_active:
                 login(request, authenticated_user)
-                #return HttpResponse('Success!', status=200)
+                return redirect('dashbord')
             else:
                 return HttpResponse('Please confirm your account and try again', status=404)
     return render(request, 'login.html', context={'login_form':login_form})

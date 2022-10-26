@@ -1,0 +1,17 @@
+<html>
+    <header>
+        <title></title>
+    </header>
+
+    <body>
+        <div class="delete">
+            <h1> vous êtes vraiment sur de vouloir suprimer ?</h1>
+            <form method="post">
+                <a class = "retour" href =" {% url 'dashbord' %} "><i class="fas fa-arrow-left-long"></i></a>
+                {% csrf_token %}
+                <button type="submit" >Oui</button> 
+                <a href=" {% url 'dashbord' %}" > Non</a>
+            </form>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="form-contenaire">
+    
+    <form action="", method = 'post' enctype="multipart/form-data", style = "">
+        <a class = "retour"  href =" {% url 'dashbord' %} "><i class="fas fa-arrow-left-long"></i></a>
+    {% csrf_token %}
+    {% if form.name %}{{form.name}}{% endif %}
+    {% if form.level %} {{form.level}}{% endif %}
+    {% if form.type %} {{form.type}}{% endif %}
+    {% if form.phone %} {{form.phone}}{% endif %}
+    {% if form.email %} {{form.email}}{% endif %}
+    {% if form.adress %} {{form.adress}}{% endif %}
+    {% if form.etablisement %} {{form.etablisement}}{% endif %}
+    {% if form.company %} {{form.company}}{% endif %}
+    {% if form.start_at %} {{form.start_at}}{% endif %}
+    {% if form.end_at %} {{form.end_at}}{% endif %}
+    {% if form.poste %} {{form.poste}}{% endif %}
+    {% if form.etab_website %} {{form.etab_website}}{% endif %}
+    {% if form.description %} {{form.description}}{% endif %}
+    {% if form.photo %} {{form.photo}}{% endif %}
+    {% if form.first_name %} {{form.first_name}}{% endif %}
+    {% if form.last_name %} {{form.last_name}}{% endif %}
+    {% if form.bio %} {{form.bio}}{% endif %}
+    {% if form.is_file %} {{form.is_file}}{% endif %}
+    <button type = 'submit'>register</button>
+    </form>
+</div>
+{% endblock content %}

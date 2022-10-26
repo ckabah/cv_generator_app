@@ -126,4 +126,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 AUTH_USER_MODEL = "authentication.User"
+LOGIN_URL = "login"
+LOGIN_REDIRECT_URL = "dashdord"
+LOGOUT_REDIRECT_URL = "home"
 AUTHENTICATION_BACKENDS = ['authentication.utilitis.EmailBackend']
+
