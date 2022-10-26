@@ -2,13 +2,28 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .utilitis import *
 from .forms import *
-
+from .models import *
 def home(request):
     return render(request, 'home.html', {})
 
 @login_required()
 def dashbord(request):
-    context = {}
+    profile = Profile.objects.all()[0]
+    experiences = ProfExperience.objects.all()
+    educations = Education.objects.all()
+    langues = Langue.objects.all()
+    skills = Skill.objects.all()
+    technical_skills = TechnicalSkill.objects.all()
+    projects = Project.objects.all()
+    context  = {
+        "profile":profile,
+        "experiences":experiences,
+        "educations":educations,
+        "langues":langues,
+        "skills":skills,
+        "technical_skills":technical_skills,
+        "projects":projects,
+    }
     return render(request, 'dashbord.html', context=context)
 
 # add views
