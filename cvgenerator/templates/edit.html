@@ -7,6 +7,7 @@
         <a class = "retour"  href =" {% url 'dashbord' %} "><i class="fas fa-arrow-left-long"></i></a>
     {% csrf_token %}
     {% if form.name %}{{form.name}}{% endif %}
+    {% if form.detail %} {{form.detail}}{% endif %}
     {% if form.level %} {{form.level}}{% endif %}
     {% if form.type %} {{form.type}}{% endif %}
     {% if form.phone %} {{form.phone}}{% endif %}

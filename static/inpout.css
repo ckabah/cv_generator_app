@@ -1,0 +1,176 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root{
+    --primary-color:#333333ff;
+    --second--color:#f2f2f2ff;
+}
+.dash-container{
+    background-color: var(--second--color)
+}
+.side-bar{
+    display: flex;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    background-color: var(--primary-color);
+    z-index: 9999;
+    left: -100%;
+    transition: all 0.3s ease-in;
+}
+.side-content{
+    background-color: #ecececff;
+    width: 60%;
+    height: 100%;
+    transition: all 0.3s ease-in;
+    padding: 10px;
+}
+.dash-content{
+    margin: 0;
+    padding: 0;
+}
+.active-side{
+    left:0;
+}
+.side-bar ul li{
+    margin-top: 12px;
+    font-weight: 600;
+}
+.close_side{
+    background-color: var(--second--color);
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    right: 10px;
+    top:10px
+}
+#cancel-icon_id{
+    max-width: 25px;
+}
+
+/* -------------------------- CV -------------------------------- */
+.cv{
+    background-color: #ffffffff;
+    padding: 5px;
+    max-width: 793.701px;
+}
+.cv-detail{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.cv-detail h1{
+    color: var(--second--color);
+    font-size: 18px;
+    margin: 5px 0;
+    font-weight:600;
+    text-transform: uppercase;
+    padding: 5px;
+    background-color: var(--primary-color);
+    max-width: 60%;
+    border-top-right-radius:23px;
+    border-bottom-right-radius: 23px;
+}
+.profile .profile-detail{
+    display: flex;
+    flex-direction: column;
+    background-color: var(--second--color);
+    padding: 2px;
+    gap: 5px;
+}
+.profile-img-name{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+.profile img{
+    max-width: 48px;
+}
+.profile .name{
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+.profile .profile-contact{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+.profile .name h2{
+    font-size: 22px;
+    font-weight: bold;
+}
+.profile .profile-contact li{
+    list-style: none;
+    font-size: 12px;
+    font-weight: 400px;
+}
+.tech-detail, .langue-detail{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    
+}
+.tech-content, .langue-content{
+    flex-basis: 45%;
+}
+.level-content{
+    background-color: var(--primary-color)
+}
+.level{
+    background-color:var(--second--color);
+}
+.cv .skill-detail {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+@media screen and (min-width:1024px){
+    .side-bar{
+        left: 0%;
+        width: 25%;
+    }
+    .dash-content{
+        margin-left: 27%;
+    }
+    .side-content{
+        width: 100%;
+        height: 100%;
+    }
+    .close_side{
+        display: none;
+    }
+    .app-icon{
+        display: none;
+    }
+    .profile .name h2{
+        font-size: 32px;
+        font-weight: bold;
+    }
+    .profile .profile-contact li{
+        font-size: 14px;
+        font-weight: 500px;
+    }
+    .profile .name{
+        gap: 32px;
+    }
+}
+@media screen and (min-width:1440px){
+    .side-bar{
+        width: 20%;
+    }
+    .dash-content{
+        margin-left: 22%;
+    }
+    .close_side{
+        display: none;
+    }
+}

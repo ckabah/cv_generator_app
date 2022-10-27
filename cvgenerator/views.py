@@ -8,13 +8,13 @@ def home(request):
 
 @login_required()
 def dashbord(request):
-    profile = Profile.objects.all()[0]
-    experiences = ProfExperience.objects.all()
-    educations = Education.objects.all()
-    langues = Langue.objects.all()
-    skills = Skill.objects.all()
-    technical_skills = TechnicalSkill.objects.all()
-    projects = Project.objects.all()
+    profile = Profile.objects.filter(user=request.user)[0]
+    experiences = ProfExperience.objects.filter(user=request.user)
+    educations = Education.objects.filter(user=request.user)
+    langues = Langue.objects.filter(user=request.user)
+    skills = Skill.objects.filter(user=request.user)
+    technical_skills = TechnicalSkill.objects.filter(user=request.user)
+    projects = Project.objects.filter(user=request.user)
     context  = {
         "profile":profile,
         "experiences":experiences,

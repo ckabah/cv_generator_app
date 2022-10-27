@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
     <head>
@@ -6,10 +7,182 @@
         <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
+        <link rel="stylesheet" href="{% static 'style.css' %}">
     </head>
     <body>
-        <h1>Dashbord</h1>
-        <script src="" async defer></script>
+        <div  class="dash-container">
+            <div id ="appid" class="app-icon">
+                {% include  'partials/app_icon.html'%}
+            </div>
+            <div id = 'sideid' class="side-bar">
+                <div id ="close_side" class="close_side">
+                    {% include  'partials/cancel_icon.html'%}
+                </div>
+                <div  class="side-content">
+                    <a href = "{% url 'home' %}" class="logo font-bold text-xl text-red-600">cvGen</a>
+                    <ul>
+                        <li>
+                            <a class = "" href = "{% url 'add_profile' %}"><i class= "fas fa-user"></i>Add your Profile</a>
+                        </li>
+                        <li>
+                            <a  href =" {% url 'add_experience' %} "><i class= "fas fa-message"></i>Add experience</a>
+                        </li>
+                        <li>
+                            <a  href =" {% url 'add_project' %} "><i class= "fas fa-user"></i>Add project</a>
+                        </li>
+                        <li>
+                            <a class = "" href = "{% url 'add_education' %}"><i class= "fas fa-graduation-cap"></i>Add education</a>
+                        </li>
+                        <li>
+                            <a class = "" href = "{% url 'add_skill' %}"><i class= "fas fa-phone"></i>Add skill</a>
+                        </li>
+                        <li>
+                            <a  href =" {% url 'add_technical_skill' %} "><i class= "fas fa-user"></i>Add tech skill</a>
+                        </li>
+                       
+                        <li>
+                            <a  href =" {% url 'add_langue' %} "><i class= "fas fa-user"></i>Add langue</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="dash-content">
+                <h3 class="">Your CV</h3>
+                <div class="cv">
+                    <div class="cv-detail">
+                        {% if profile %}
+                            <div class="profile">
+                                <div class="profile-detail">
+                                    <div class="profile-img-name">
+                                        {% if user.profile.photo %}
+                                            <div class="profile-img">
+                                                <img class="photo" src={{user.profile.photo.url }}>
+                                            </div>
+                                        {% endif %}
+                                        <div class="name">
+                                            <h2>{{user.profile.first_name}}</h2>
+                                            <h2>{{user.profile.last_name}}</h2>
+                                        </div>
+                                    </div>
+                                    <div class="profile-contact">
+                                        <li>{{user.profile.phone}}</li>
+                                        <li>{{user.profile.email}}</li>
+                                        <li>{{user.profile.adress}}</li>
+                                    </div>
+                                </div>
+                                <div class="profile-bio">
+                                    <h1>Profil</h1>
+                                    <p>{{user.profile.bio}}</p>
+                                </div>
+                                <div class="edit-del">
+                                    <a class = "edit" href = "{% url 'edit_profile' user.profile.id %}"><i class="fas fa-pen"></i></a>
+                                    <a class = "del" href = "{% url 'del_profile' user.profile.id %}"><i class="fas fa-trash"></i></a>
+                                </div>
+                            </div>
+                        {% endif %}
+                        {% if user.experience %}
+                            <div class="experience">
+                                <h1 class = "title">Eperiences</h1>
+                                {% for experience  in experiences %}
+                                    <div class="edit-del">
+                                        <a class = "edit" href = "{% url 'edit_experience' experience.id %}"><i class="fas fa-pen"></i></a>
+                                        <a class = "del" href = "{% url 'del_experience' experience.id %}"><i class="fas fa-trash"></i></a>
+                                    </div>
+                                    <div class="experience-detail">
+                                        <p class ="title-h2"><span >{{experience.type}}</span> | <span>{{experience.etablisement}}</span> | <span>{{experience.poste}}</span></p>
+                                        <p class ="title-h3"> <span> {{experience.start_at}} - {{experience.end_at}}</span> </p>
+                                        <p>{{experience.description}}</p>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        {% if projects %}
+                            <div class="project">
+                                <h1>Projects</h1>
+                                {% for project in projects %}
+                                    <h3>{{project.name}}</h3>
+                                    <p>{{project.detail}}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        {% if educations %}
+                            <div class="education">
+                                <h1 class = "title" >Educations</h1>
+                                {% for education in educations %}
+                                <div class="edit-del">
+                                    <a class = "edit" href = "{% url 'edit_education' education.id %}"><i class="fas fa-pen"></i></a>
+                                    <a class = "del" href = "{% url 'edit_education' education.id %}"><i class="fas fa-trash"></i></a>
+                                </div>
+                                <div class="education-detail">
+                                    <p class ="title-h3"><span>{{education.start_at.year}} - {{education.end_at.year}}</span> | <span>{{education.etablisement}}</span></p>
+                                    <p class ="title-h2"><span class = "title-h2">{{education.level}}</span> - <span class = "title-h2">{{education.name}}</span></p>
+                                    <p>{{education.description}}</p>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        {% if skills %}
+                            <div class="Skills">
+                                <h1 class = "title">Skills</h1>
+                                <div class="skill-detail">
+                                    {% for skill in skills %}
+                                        <div class="skill-name">
+                                            <div class="edit-del">
+                                                <a class = "edit" href = "{% url 'edit_skill' skill.id %}"><i class="fas fa-pen"></i></a>
+                                                <a class = "del" href = "{% url 'del_skill' skill.id %}"><i class="fas fa-trash"></i></a>
+                                            </div>
+                                            <p><span>*</span> {{skill.name}}</p>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        {% endif %}
+                        {% if technical_skills %}
+                            <div class="technical-skills">
+                                <h1 class = "title">Technical Skills</h1>
+                                <div class="tech-detail">
+                                    {% for tech_skill in technical_skills %}
+                                        <div class="tech-content">
+                                            <div class="edit-del">
+                                                <a class = "edit" href = "{% url 'edit_technical_skill' tech_skill.id %}"><i class="fas fa-pen"></i></a>
+                                                <a class = "del" href = "{% url 'del_technical_skill' tech_skill.id %}"><i class="fas fa-trash"></i></a>
+                                            </div>
+                                            <p>{{tech_skill.name}}</p>
+                                            <div class="level" style = "with:100%" >
+                                                <div class="level-content" style = "width:{{tech_skill.level}}% ; height:10px;">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        {% endif %}
+                        {% if langues %}
+                            <div class="langues">
+                                <h1 class = "title">Langues</h1>
+                                <div class="langue-detail">
+                                    {% for langue in langues %}
+                                        <div class="langue-content">
+                                            <div class="edit-del">
+                                                <a class = "edit" href = "{% url 'edit_langue' langue.id %}"><i class="fas fa-pen"></i></a>
+                                                <a class = "del" href = "{% url 'del_langue' langue.id %}"><i class="fas fa-trash"></i></a>
+                                            </div>
+                                            <p>{{langue.name}}</p>
+                                            <div class="level" style = "with:100%">
+                                                <div class="level-content" style = "width:{{langue.level}}% ; height:10px;">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src = "{% static 'main.js' %}"></script>
     </body>
 </html>

@@ -23,14 +23,14 @@ class TechnicalSkillForm(forms.ModelForm):
     name = forms.CharField(widget=forms.TextInput(attrs={"class":"form_input", "placeholder":"Le nom (python)"}))
     level = forms.CharField(widget=forms.TextInput(attrs={"class":"form_input", "placeholder":"Niveau (entre 0 et 100)"}))
     class Meta:
-        model = Skill
+        model = TechnicalSkill
         fields = ["name", "level",]
 
 class ProjectForm(forms.ModelForm):
     name = forms.CharField(widget=forms.TextInput(attrs={"class":"form_input", "placeholder":"Le nom (python)"}))
     detail = forms.CharField(widget=forms.Textarea(attrs={"class":"form_area", "placeholder":"Project detail"}))
     class Meta:
-        model = Skill
+        model = Project
         fields = ["name","detail"]
 
 class LangueForm(forms.ModelForm):
