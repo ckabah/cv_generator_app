@@ -1,0 +1,23 @@
+{% load static %}
+<div class='nav-section flex h-20 items-center top-0 w-full'>
+    <nav class='nav-content flex flex-row justify-between items-center  xl:basis-9/12 bg-gray-150 mx-auto'>
+        <div class =' basis-5/12 lg:basis-2/12'>
+            <a href="{% url 'home' %}" class ='logo font-bold text-3xl'>cvGen</a>
+        </div>
+        <div class ="nav-links basis-10/12">
+            <ul class = 'nav-items  flex felx-row  justify-end items-center gap-12 text-white'>
+                <div id='cancel_icon'>{% include 'partials/cancel_icon.html' %}</div>
+                <li><a href="">Blog</a></li>
+                {% if user.is_authenticated %}
+                <li><a href="{% url 'dashbord' %}">Dashbord</a></li>
+                {% else %}
+                <li><a href="{% url 'login' %}">Login</a></li>
+                {% endif %}
+                <li>{% include "partials/githup.html" %}</li>
+            </ul>
+        </div>
+        <div id="menubtn">
+            {% include 'partials/app_icon.html' %}
+        </div>
+    </nav>
+</div>

@@ -8,7 +8,7 @@ class EducationForm(forms.ModelForm):
     start_at = forms.DateField(required=False,widget=forms.DateInput(format=('%Y-%m-%d'),attrs={"class":"form_date", "placeholder":"Date de début",'type':'date'}))
     end_at = forms.DateField(required=False, widget=forms.DateInput(format=('%Y-%m-%d'),attrs={"class":"form_date", "placeholder":"Date de fin",'type':'date'}))
     etab_website = forms.URLField(required=False, widget=forms.URLInput(attrs={"class":"form_input", "placeholder":"url du site web de l'entreprice"}))
-    description = forms.CharField(widget=forms.Textarea(attrs={"class":"form_area", "placeholder":"Une brêve description de la formation"}))
+    description = forms.CharField(widget=forms.Textarea(attrs={"class":"form_area", "placeholder":"Une brêve description de la formation", 'rows':'5'}))
     class Meta:
         model = Education
         fields = ['name', 'level',"start_at", "end_at",'etablisement',"etab_website", 'description']
@@ -28,7 +28,7 @@ class TechnicalSkillForm(forms.ModelForm):
 
 class ProjectForm(forms.ModelForm):
     name = forms.CharField(widget=forms.TextInput(attrs={"class":"form_input", "placeholder":"Le nom (python)"}))
-    detail = forms.CharField(widget=forms.Textarea(attrs={"class":"form_area", "placeholder":"Project detail"}))
+    detail = forms.CharField(widget=forms.Textarea(attrs={"class":"form_area", "placeholder":"Project detail",'rows':'5'}))
     class Meta:
         model = Project
         fields = ["name","detail"]
@@ -47,7 +47,7 @@ class ExperienceForm(forms.ModelForm):
     start_at = forms.DateField(required=False,widget=forms.DateInput(format=('%Y-%m-%d'),attrs={"class":"form_date", "placeholder":"Started date",'type': 'date'}))
     end_at = forms.DateField(required=False,widget=forms.DateInput(format=('%Y-%m-%d'),attrs={"class":"form_date", "placeholder":"Date de fin",'type':'date'}))
     etab_website = forms.URLField(required=False,widget=forms.URLInput(attrs={"class":"form_input", "placeholder":"url du site web de l'entreprice"}))
-    description = forms.CharField(widget=forms.Textarea(attrs={"class":"form_area", "placeholder":"Une brêve description"}))
+    description = forms.CharField(widget=forms.Textarea(attrs={"class":"form_area", "placeholder":"Une brêve description",'rows':'5'}))
     class Meta:
         model = ProfExperience
         fields = fields = ['type', "start_at", "end_at","poste",'company',"etab_website",'description']
@@ -59,7 +59,7 @@ class ProfileForm(forms.ModelForm):
     phone = forms.CharField(required=False,widget=forms.NumberInput(attrs={"class":"form_input", "placeholder":"Numéro de mobile"}))
     email = forms.EmailField(widget=forms.EmailInput(attrs={"class":"form_input", "placeholder":"Email"}))
     adress = forms.CharField(required=False,widget=forms.TextInput(attrs={"class":"form_input", "placeholder":"Adresse"}))
-    bio = forms.CharField(widget=forms.Textarea(attrs={"class":"form_input", "placeholder":"qui êtes vous ?"}))
+    bio = forms.CharField(widget=forms.Textarea(attrs={"class":"form_area", "placeholder":"qui êtes vous ?",'rows':'5'}))
     is_file = forms.BooleanField(widget=forms.HiddenInput, initial=True)
     class Meta:
         model = Profile

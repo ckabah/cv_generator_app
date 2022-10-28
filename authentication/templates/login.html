@@ -1,10 +1,13 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <form method='POST'>
-        {{login_form.as_p}}
+<div class="form-contenaire">
+    <form method='POST' class='flex flex-col mx-auto w-8/12 gap-2'>
+        {{login_form.email}}
+        {{login_form.password}}
         <button type = 'submit'>Log in</button>
         {% csrf_token %}
     </form>
+</div>
     
 {% endblock content %}
