@@ -6,6 +6,10 @@
         {{login_form.email}}
         {{login_form.password}}
         <button type = 'submit'>Log in</button>
+        <div>
+            <p><a href="{% url 'register' %}" class='mr-2 text-orange-500'>Create account</a>|
+                <a href="{% url 'password_reset' %}" class='mr-2'>password forget</a></p>
+        </div>
         {% csrf_token %}
     </form>
 </div>

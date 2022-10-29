@@ -1,10 +1,17 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="form-contenaire">
+    
     <form method='POST'>
-        {{register_form.as_p}}
+        <a class = "retour"  href =" {% url 'login' %} "><i class="fas fa-arrow-left-long"></i></a>
+        {{register_form.user_name}}
+        {{register_form.email}}
+        {{register_form.password1}}
+        {{register_form.password2}}
         <button type='submit'>register</button>
         {% csrf_token %}
     </form>
+</div>
 {% endblock content %}
 

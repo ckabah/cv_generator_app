@@ -46,7 +46,8 @@
 }
 /* --------------------- dashbord */
 .dash-container{
-    background-color: var(--second--color)
+    background-color: var(--second--color);
+    padding: 20px 0 ;
 }
 .side-bar{
     display: flex;
@@ -73,8 +74,12 @@
 .active-side{
     left:0;
 }
+.side-bar ul{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
 .side-bar ul li{
-    margin-top: 12px;
     font-weight: 600;
 }
 .close_side{
@@ -94,6 +99,7 @@
     background-color: #ffffffff;
     padding: 5px;
     max-width: 793.701px;
+    margin: 20px 0;
 }
 .cv-detail{
     display: flex;
@@ -150,6 +156,12 @@
     font-size: 12px;
     font-weight: 400px;
 }
+.experience-detail, .project-detail{
+    display: flex;
+    flex-direction: column;
+    gap:12px ;
+}
+
 .tech-detail, .langue-detail{
     display: flex;
     flex-direction: row;
@@ -164,7 +176,7 @@
     background-color: var(--primary-color)
 }
 .level{
-    background-color:var(--second--color);
+    background-color:#9d9d9d;
 }
 .cv .skill-detail {
     display: flex;
@@ -172,15 +184,48 @@
     flex-wrap: wrap;
     gap: 10px;
 }
+.title-h2{
+    font-weight:600;
+    font-size:14px;
+}
+.title-h3{
+    font-weight:600;
+    font-size:18px;
+}
+.edit-del{
+    display: none;
+    flex-direction: row;
+    float: right;
+    margin-top: 2px;
+    gap: 10px;
+}
 
+.edit{
+    color: blue;
+    font-size: 12px;
+}
+.del{
+    color: red;
+    font-size: 12px;
+}
+.profile:hover .edit-del,
+.experience-conent:hover .edit-del,
+.project-content:hover .edit-del,
+.education-content:hover .edit-del,
+.skill-name:hover .edit-del,
+.tech-content:hover .edit-del,
+.langue-content:hover .edit-del{
+    display: flex;
+}
 /* ---------------------- form -------------------------- */
 .form-contenaire{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     flex-direction: column;
-    margin-top: 10%;
+    margin-top: 5%;
     align-items: center;
+    padding: 10px 5px;
 }
 
 .form-contenaire form{

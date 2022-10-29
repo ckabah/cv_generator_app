@@ -1,5 +1,6 @@
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib import messages
+from .models import *
 
 def add(request,form):
     add_form = form()
@@ -14,15 +15,15 @@ def add(request,form):
             new_model.save()
             add_form = form()
     return add_form
-
-def delete(request, id, model, model_form):
+    
+def delete(request, id, model):
     obj = get_object_or_404(model, id = id)
-    del_form = model_form(instance = obj)
     if request.method == "POST":
-        del_form = model_form(request.POST, instance = obj)
         obj.delete()
         messages.error(request, "Votre Article a bien été supprimé")
-    return del_form
+        return  redirect('dashbord')
+    return render(request,"del.html")
+        
 
 def edit(request, id, model,model_form):
     obj = get_object_or_404(model, id=id)
@@ -35,3 +36,22 @@ def edit(request, id, model,model_form):
         edit_form.save()
         messages.success(request, 'Votre Article a bien été modifié')
     return edit_form
+
+def get_all_context(request):
+    profile = Profile.objects.filter(user=request.user)[0]
+    experiences = ProfExperience.objects.filter(user=request.user)
+    educations = Education.objects.filter(user=request.user)
+    langues = Langue.objects.filter(user=request.user)
+    skills = Skill.objects.filter(user=request.user)
+    technical_skills = TechnicalSkill.objects.filter(user=request.user)
+    projects = Project.objects.filter(user=request.user)
+    context  = {
+        "profile":profile,
+        "experiences":experiences,
+        "educations":educations,
+        "langues":langues,
+        "skills":skills,
+        "technical_skills":technical_skills,
+        "projects":projects,
+    }
+    return context

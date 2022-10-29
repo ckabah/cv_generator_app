@@ -2,29 +2,31 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .utilitis import *
 from .forms import *
-from .models import *
+from django.views.generic import View
+from wkhtmltopdf.views import PDFTemplateResponse
+
 def home(request):
     return render(request, 'home.html', {})
 
 @login_required()
 def dashbord(request):
-    profile = Profile.objects.filter(user=request.user)[0]
-    experiences = ProfExperience.objects.filter(user=request.user)
-    educations = Education.objects.filter(user=request.user)
-    langues = Langue.objects.filter(user=request.user)
-    skills = Skill.objects.filter(user=request.user)
-    technical_skills = TechnicalSkill.objects.filter(user=request.user)
-    projects = Project.objects.filter(user=request.user)
-    context  = {
-        "profile":profile,
-        "experiences":experiences,
-        "educations":educations,
-        "langues":langues,
-        "skills":skills,
-        "technical_skills":technical_skills,
-        "projects":projects,
-    }
+    context  = get_all_context(request)
     return render(request, 'dashbord.html', context=context)
+
+class HtmlToPdf(View):
+    template_name = 'cv.html'
+    
+    def get(self, request):
+        context  = get_all_context(request)
+        response = PDFTemplateResponse(
+            request=request,
+            template=self.template_name,
+            filename='cv.pdf',
+            context=context,
+            show_content_in_browser = True,
+            cmd_options={'margin-top': 0,'disable-javascript': True, 'quiet': None, 'enable-local-file-access': True},
+        )
+        return response
 
 # add views
 @login_required()
@@ -80,7 +82,7 @@ def edit_skill(request, id):
 
 @login_required()
 def edit_technical_skill(request, id):
-    edit_form = add(request,id, TechnicalSkill, TechnicalSkillForm,)
+    edit_form = edit(request,id, TechnicalSkill, TechnicalSkillForm,)
     return render(request,"edit.html", context={"form":edit_form})
 
 @login_required()
@@ -90,7 +92,7 @@ def edit_experience(request, id):
 
 @login_required()
 def edit_project(request, id):
-    edit_form = add(request,id, Project,ProjectForm,)
+    edit_form = edit(request,id, Project,ProjectForm,)
     return render(request,"edit.html", context={"form":edit_form})
 
 @login_required()
@@ -101,35 +103,35 @@ def edit_langue(request,id):
 # delete views
 @login_required()
 def del_profile(request, id):
-    del_form = delete(request, id, Profile, ProfileForm,)
-    return render(request,"del.html", context={"form":del_form })
+    response=delete(request, id, Profile)
+    return response
 
 @login_required()
 def del_education(request, id):
-    del_form = delete(request, id, Education, EducationForm,)
-    return render(request,"del.html", context={"form":del_form })
+    response=delete(request, id, Education,)
+    return response
 
 @login_required()
 def del_skill(request, id):
-    del_form  = delete(request, id, Skill, SkillForm,)
-    return render(request,"del.html", context={"form":del_form})
+    response=delete(request, id, Skill)
+    return response
 
 @login_required()
 def del_technical_skill(request, id):
-    del_form = add(request,id, TechnicalSkill, TechnicalSkillForm,)
-    return render(request,"del.html", context={"form":del_form})
+    response = delete(request,id, TechnicalSkill)
+    return response
 
 @login_required()
 def del_experience(request,id):
-    del_form  = delete(request, id, ProfExperience, ExperienceForm,)
-    return render(request,"del.html", context={"form":del_form })
+    response = delete(request, id, ProfExperience)
+    return response
 
 @login_required()
-def del_project(request):
-    del_form = add(request,id, Project,ProjectForm,)
-    return render(request,"del.html", context={"form":del_form})
+def del_project(request, id):
+    response=delete(request,id, Project,)
+    return response
 
 @login_required()
 def del_langue(request, id):
-    del_form  = delete(request,id, Langue, LangueForm,)
-    return render(request,"del.html", context={"form":del_form})
+    response= delete(request,id, Langue)
+    return response

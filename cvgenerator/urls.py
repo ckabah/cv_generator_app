@@ -1,4 +1,5 @@
-from django.urls import path
+from django.urls import path, re_path
+from django.views.static import serve
 from .views import *
 
 urlpatterns = [
@@ -28,5 +29,6 @@ urlpatterns = [
     path('delete/technical-skill/<int:id>', del_technical_skill, name = 'del_technical_skill'),
     path('delete/experience/<int:id>', del_experience, name = 'del_experience'),
     path('delete/langue/<int:id>', del_langue, name = 'del_langue'),
-    path('delete/project/<int:id>', del_project, name='edit_project')
+    path('delete/project/<int:id>', del_project, name='del_project'),
+    path('download-pdf/', HtmlToPdf.as_view(), name='download')
 ]

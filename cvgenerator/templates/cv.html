@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title></title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+        <style>
+            :root{
+                --primary-color:#333333ff;
+                --second-color:#f2f2f2ff;
+            }
+            body{
+                margin:0;
+                padding:0 2.54cm;
+            }
+            .cv{
+                background-color: #ffffffff;
+            }
+            .cv-detail{
+                display: flex;
+                flex-direction: column;
+            }
+            .cv-detail i{
+                margin-right : 10px
+            }
+            .cv-detail h1{
+                color: var(--second-color);
+                font-size: 22px;
+                font-weight:600;
+                text-transform: uppercase;
+                padding: 5px;
+                background-color: var(--primary-color);
+                max-width: 60%;
+                border-top-right-radius:23px;
+                border-bottom-right-radius: 23px;
+            }
+            .profile .profile-detail{
+                display: flex;
+                flex-direction: column;
+                background-color: var(--second-color);
+                padding: 2px;
+                gap: 5px;
+            }
+            .profile-img-name{
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+            }
+            .profile-img{
+                display:flex;
+                justify-content:center;
+                max-width: 48px;
+                max-height 48px;
+                margin-bottom:20px;
+            }
+            .profile-img img{
+                width: 100%;
+                height 100%;
+            }
+
+            .profile .name{
+                display: flex;
+                flex-direction: row;
+            }
+            .profile .profile-contact{
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                gap: 5px;
+                margin-bottom:15px;
+            }
+            .profile .name h2{
+                font-size: 32px;
+                font-weight: bold;
+                margin-left:15px;
+            }
+            .profile .profile-contact li{
+                list-style: none;
+                font-size: 15px;
+                font-weight: 600;
+                margin:0 10px;
+            }
+            .tech-detail, .langue-detail{
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: space-between;
+                
+            }
+            .tech-content *, .langue-content *{
+                margin:3px 0;
+                padding:0;
+            }
+            .tech-content, .langue-content{
+                flex-basis: 45%;
+            }
+            .level-content{
+                background-color: var(--primary-color)
+            }
+            .level{
+                background-color:#9d9d9d;
+            }
+            .cv .skill-detail {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                margin:0;
+                padding:0;
+            }
+            .skill-name{
+                margin-right:12px;
+            }
+            .skill-name p{
+                margin:0;
+                font-size:18px;
+                font-weight:600;
+            }
+            .experience-detail{
+                margin-bottom:12px;
+            }
+            .experience-detail p, .education-detail p{
+                margin:5px 0;
+            }
+            .project-conent{
+                margin-bottom:12px
+                padding:0;
+            }
+            .project-conent h2,
+            .project-conent p{
+                margin:0;
+                padding:0;
+            }
+            .title-h2{
+                font-weight:600;
+                font-size:14px;
+            }
+            .title-h3{
+                font-weight:600;
+                font-size:18px;
+            }
+            .project-content{
+                margin-bottom:12px
+            }
+            .project-content *{
+                margin:5px 0;
+                padding:0;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="cv">
+            <div class="cv-detail">
+                {% if profile %}
+                    <div class="profile">
+                        <div class="profile-detail">
+                            <div class="profile-img-name">
+                                {% if user.profile.photo %}
+                                    <div class="profile-img">
+                                        <img class="photo" src={{user.profile.photo.path}} width:48px height:48px />
+                                    </div>
+                                {% endif %}
+                                <div class="name">
+                                    <h2>{{user.profile.first_name}}</h2>
+                                    <h2>{{user.profile.last_name}}</h2>
+                                </div>
+                            </div>
+                            <div class="profile-contact">
+                                <li ><i class='fas fa-phone'></i>{{user.profile.phone}}</li>
+                                <li ><i class="fa-solid fa-envelope"></i>{{user.profile.email}}</li>
+                                <li ><i class="fa-solid fa-location-dot"></i>{{user.profile.adress}}</li>
+                            </div>
+                        </div>
+                        <div class="profile-bio">
+                            <h1>Profil</h1>
+                            <p>{{user.profile.bio}}</p>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if experiences %}
+                    <div class="experience">
+                        <h1 class = "title">Eperiences</h1>
+                        <div class="experience-content">
+                            {% for experience  in experiences %}
+                                <div class="experience-detail">
+                                    <p class = 'title-h2'> <span> {{experience.get_start_date}} - {{experience.get_end_date}}</span></p>
+                                    <p class = 'title-h3'><span>{{experience.company}}</span> | <span>{{experience.poste}}</span></p>
+                                    <p>{{experience.description}}</p>
+                                </div>
+                        {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+                {% if projects %}
+                    <div class="project">
+                        <h1>Projects</h1>
+                        <div class="project-detail">
+                            {% for project in projects %}
+                            <div class="project-content">
+                                <h3 class='title-h3'>{{project.name}}</h3>
+                                <p>{{project.detail}}</p>
+                            </div>   
+                        {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+                {% if educations %}
+                    <div class="education">
+                        <h1 class = "title" >Educations</h1>
+                        {% for education in educations %}
+                        <div class="education-content">
+                            <div class="education-detail">
+                                <p class ="title-h2"><span>{{education.start_at.year}} - {{education.end_at.year}}</span> | <span>{{education.etablisement}}</span></p>
+                                <p class ="title-h3"><span >{{education.level}}</span> |<span>{{education.name}}</span></p>
+                                <p>{{education.description}}</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                {% if skills %}
+                    <div class="Skills">
+                        <h1 class = "title">Skills</h1>
+                        <div class="skill-detail">
+                            {% for skill in skills %}
+                                <div class="skill-name">
+                                    <p>{{skill.name}},</p>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+                {% if technical_skills %}
+                    <div class="technical-skills">
+                        <h1 class = "title">Technical Skills</h1>
+                        <div class="tech-detail">
+                            {% for tech_skill in technical_skills %}
+                                <div class="tech-content">
+                                    <p class='title-h3'>{{tech_skill.name}}</p>
+                                    <div class="level" style = "with:100%" >
+                                        <div class="level-content" style = "width:{{tech_skill.level}}% ; height:10px;">
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+                {% if langues %}
+                    <div class="langues">
+                        <h1 class = "title">Langues</h1>
+                        <div class="langue-detail">
+                            {% for langue in langues %}
+                                <div class="langue-content">
+                                    <p class='title-h3'>{{langue.name}}</p>
+                                    <div class="level" style = "with:100%">
+                                        <div class="level-content" style = "width:{{langue.level}}% ; height:10px;">
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </body>
+</html>

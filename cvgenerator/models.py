@@ -37,6 +37,11 @@ class Education(models.Model):
     end_at = models.DateField(verbose_name='End date' , null=True, blank=True)
     etab_website = models.URLField(blank=True, null=True)
     
+    def get_start_date(self):
+        return f'{self.start_at.month}/{self.start_at.day}/{self.start_at.year}'
+    def get_end_date(self):
+        return f'{self.end_at.month}/{self.end_at.day}/{self.end_at.year}'
+        
 class ProfExperience(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     type = models.CharField(max_length=120)
@@ -46,6 +51,11 @@ class ProfExperience(models.Model):
     start_at = models.DateField(verbose_name='Start date ', null=True, blank=True)
     end_at = models.DateField(verbose_name='End date' , null=True, blank=True)
     etab_website = models.URLField(blank=True, null=True)
+
+    def get_start_date(self):
+        return f'{self.start_at.month}/{self.start_at.day}/{self.start_at.year}'
+    def get_end_date(self):
+        return f'{self.end_at.month}/{self.end_at.day}/{self.end_at.year}'
 
 class Project(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

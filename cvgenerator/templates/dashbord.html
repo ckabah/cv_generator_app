@@ -7,6 +7,7 @@
         <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
         <link rel="stylesheet" href="{% static 'style.css' %}">
     </head>
     <body>
@@ -19,40 +20,47 @@
                     {% include  'partials/cancel_icon.html'%}
                 </div>
                 <div  class="side-content">
-                    <a href = "{% url 'home' %}" class="logo font-bold text-xl text-red-600">cvGen</a>
+                    <div class='mb-8 bg-gray-800 w-6/12'>
+                        <a href = "{% url 'home' %}" class="logo font-bold text-2xl">cvGen</a>
+                    </div>
+                    
                     <ul>
                         <li>
-                            <a class = "" href = "{% url 'add_profile' %}"><i class= ""></i>Add your Profile</a>
+                            <a class = "" href = "{% url 'add_profile' %}"><i class= "fas fa-user mr-2"></i>Add your Profile</a>
                         </li>
                         <li>
-                            <a  href =" {% url 'add_experience' %} "><i class= ""></i>Add experience</a>
+                            <a  href =" {% url 'add_experience' %} "><i class="fa-solid fa-star mr-2"></i>Add experience</a>
                         </li>
                         <li>
-                            <a  href =" {% url 'add_project' %} "><i class= ""></i>Add project</a>
+                            <a  href =" {% url 'add_project' %} "><i class="fa-solid fa-list-check mr-2"></i>Add project</a>
                         </li>
                         <li>
-                            <a class = "" href = "{% url 'add_education' %}"><i class= ""></i>Add education</a>
+                            <a class = "" href = "{% url 'add_education' %}"><i class= "fas fa-graduation-cap mr-2"></i>Add education</a>
                         </li>
                         <li>
-                            <a class = "" href = "{% url 'add_skill' %}"><i class= ""></i>Add skill</a>
+                            <a class = "" href = "{% url 'add_skill' %}"><i class="fa-sharp fa-solid fa-toolbox mr-2"></i>Add skill</a>
                         </li>
                         <li>
-                            <a  href =" {% url 'add_technical_skill' %} "><i class= ""></i>Add tech skill</a>
+                            <a  href =" {% url 'add_technical_skill' %} "><i class="fa-solid fa-screwdriver-wrench mr-2"></i>Add tech skill</a>
                         </li>
                        
                         <li>
-                            <a  href =" {% url 'add_langue' %} "><i class= ""></i>Add langue</a>
+                            <a  href =" {% url 'add_langue' %} "><i class="fa-solid fa-language mr-2"></i></i>Add langue</a>
                         </li>
                         <li>
-                            <a  href =" {% url 'logout' %} "><i class= ""></i>Logout</a>
+                            <a  href =" {% url 'logout' %} "><i class="fa-solid fa-right-from-bracket mr-2"></i>Logout</a>
                         </li>
                     </ul>
                 </div>
             </div>
             
-            <div class="dash-content">
-                <h3 class="">Your CV</h3>
+            <div class="dash-content mr-2">
+                
                 <div class="cv">
+                    <div class='flex justify-between bg-gray-800 mb-8 px-2'>
+                        <h3 class="font-bold text-gray-100">Your CV</h3>
+                        <a href="{% url 'download' %}" class='text-gray-100'>download</a>
+                    </div>
                     <div class="cv-detail">
                         {% if profile %}
                             <div class="profile">
@@ -60,7 +68,7 @@
                                     <div class="profile-img-name">
                                         {% if user.profile.photo %}
                                             <div class="profile-img">
-                                                <img class="photo" src={{user.profile.photo.url }}>
+                                                <img class="photo" src={{user.profile.photo.url}}>
                                             </div>
                                         {% endif %}
                                         <div class="name">
@@ -68,10 +76,10 @@
                                             <h2>{{user.profile.last_name}}</h2>
                                         </div>
                                     </div>
-                                    <div class="profile-contact">
-                                        <li>{{user.profile.phone}}</li>
-                                        <li>{{user.profile.email}}</li>
-                                        <li>{{user.profile.adress}}</li>
+                                    <div class="profile-contact my-4">
+                                        <li class='mx-2 font-bold'><i class='fas fa-phone mr-2'></i>{{user.profile.phone}}</li>
+                                        <li class='mx-2 font-bold'><i class="fa-solid fa-envelope mr-2"></i>{{user.profile.email}}</li>
+                                        <li class='mx-2 font-bold'><i class="fa-solid fa-location-dot mr-2"></i>{{user.profile.adress}}</li>
                                     </div>
                                 </div>
                                 <div class="profile-bio">
@@ -84,43 +92,59 @@
                                 </div>
                             </div>
                         {% endif %}
-                        {% if user.experience %}
+                        {% if experiences %}
                             <div class="experience">
                                 <h1 class = "title">Eperiences</h1>
-                                {% for experience  in experiences %}
-                                    <div class="edit-del">
-                                        <a class = "edit" href = "{% url 'edit_experience' experience.id %}"><i class="fas fa-pen"></i></a>
-                                        <a class = "del" href = "{% url 'del_experience' experience.id %}"><i class="fas fa-trash"></i></a>
-                                    </div>
-                                    <div class="experience-detail">
-                                        <p class ="title-h2"><span >{{experience.type}}</span> | <span>{{experience.etablisement}}</span> | <span>{{experience.poste}}</span></p>
-                                        <p class ="title-h3"> <span> {{experience.start_at}} - {{experience.end_at}}</span> </p>
-                                        <p>{{experience.description}}</p>
-                                    </div>
-                                {% endfor %}
+                                <div class="experience-detail">
+                                    {% for experience  in experiences %}
+                                        <div class="experience-conent">
+                                            <div class="edit-del">
+                                                <a class = "edit" href = "{% url 'edit_experience' experience.id %}"><i class="fas fa-pen"></i></a>
+                                                <a class = "del" href = "{% url 'del_experience' experience.id %}"><i class="fas fa-trash"></i></a>
+                                            </div>
+                                            <div class="">
+                                                <p class ="title-h2"> <span> {{experience.get_start_date}} - {{experience.get_end_date}}</span></p>
+                                                <p class ="title-h3"><span>{{experience.company}}</span> | <span>{{experience.poste}}</span></p>
+                                                <p>{{experience.description}}</p>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
                             </div>
                         {% endif %}
                         {% if projects %}
                             <div class="project">
                                 <h1>Projects</h1>
-                                {% for project in projects %}
-                                    <h3>{{project.name}}</h3>
-                                    <p>{{project.detail}}</p>
-                                {% endfor %}
+                                <div class="project-detail">
+                                    {% for project in projects %}
+                                        <div class="project-content">
+                                            <div class="edit-del">
+                                                <a class = "edit" href = "{% url 'edit_project' project.id %}"><i class="fas fa-pen"></i></a>
+                                                <a class = "del" href = "{% url 'del_project' project.id %}"><i class="fas fa-trash"></i></a>
+                                            </div>
+                                            <div class="">
+                                                <h3 class='title-h3'>{{project.name}}</h3>
+                                                <p>{{project.detail}}</p>
+                                            </div>
+                                        </div>   
+                                    {% endfor %}
+                                </div>
                             </div>
                         {% endif %}
                         {% if educations %}
                             <div class="education">
                                 <h1 class = "title" >Educations</h1>
                                 {% for education in educations %}
-                                <div class="edit-del">
-                                    <a class = "edit" href = "{% url 'edit_education' education.id %}"><i class="fas fa-pen"></i></a>
-                                    <a class = "del" href = "{% url 'edit_education' education.id %}"><i class="fas fa-trash"></i></a>
-                                </div>
-                                <div class="education-detail">
-                                    <p class ="title-h3"><span>{{education.start_at.year}} - {{education.end_at.year}}</span> | <span>{{education.etablisement}}</span></p>
-                                    <p class ="title-h2"><span class = "title-h2">{{education.level}}</span> - <span class = "title-h2">{{education.name}}</span></p>
-                                    <p>{{education.description}}</p>
+                                <div class="education-content">
+                                    <div class="edit-del">
+                                        <a class = "edit" href = "{% url 'edit_education' education.id %}"><i class="fas fa-pen"></i></a>
+                                        <a class = "del" href = "{% url 'del_education' education.id %}"><i class="fas fa-trash"></i></a>
+                                    </div>
+                                    <div class="education-detail">
+                                        <p class ="title-h2"><span>{{education.start_at.year}} - {{education.end_at.year}}</span> | <span>{{education.etablisement}}</span></p>
+                                        <p class ="title-h3"><span >{{education.level}}</span> - <span>{{education.name}}</span></p>
+                                        <p>{{education.description}}</p>
+                                    </div>
                                 </div>
                                 {% endfor %}
                             </div>
@@ -135,7 +159,7 @@
                                                 <a class = "edit" href = "{% url 'edit_skill' skill.id %}"><i class="fas fa-pen"></i></a>
                                                 <a class = "del" href = "{% url 'del_skill' skill.id %}"><i class="fas fa-trash"></i></a>
                                             </div>
-                                            <p><span>*</span> {{skill.name}}</p>
+                                            <p class='title-h3'>{{skill.name}},</p>
                                         </div>
                                     {% endfor %}
                                 </div>

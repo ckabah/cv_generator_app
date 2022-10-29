@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'authentication',
     'cvgenerator',
+    'wkhtmltopdf',
 ]
 
 MIDDLEWARE = [
@@ -133,4 +134,3 @@ LOGIN_URL = "login"
 LOGIN_REDIRECT_URL = "dashdord"
 LOGOUT_REDIRECT_URL = "home"
 AUTHENTICATION_BACKENDS = ['authentication.utilitis.EmailBackend']
-

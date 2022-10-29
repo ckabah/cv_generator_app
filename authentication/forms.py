@@ -11,6 +11,11 @@ class UserCreationForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['email', 'user_name']
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['password1'].widget.attrs= {"class" :"form_input r_password" , "placeholder":"Password"}
+        self.fields['password2'].widget.attrs= {"class" :"form_input r_password" , "placeholder":"Confirm password"}
 
 class LoginForm(forms.Form):
     #username = forms.CharField(label='Email / Username')
