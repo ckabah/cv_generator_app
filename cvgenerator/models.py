@@ -10,6 +10,8 @@ class Profile(models.Model):
     phone = models.CharField(max_length=17, blank=True, null = True)
     adress = models.CharField(max_length=250, blank=True, null = True)
     email = models.EmailField()
+    github = models.URLField(blank=True, null=True)
+    website = models.URLField(blank=True, null=True)
     bio = models.TextField()
 
     IMAGE_MAX_SIZE = (300, 300)
@@ -37,11 +39,13 @@ class Education(models.Model):
     end_at = models.DateField(verbose_name='End date' , null=True, blank=True)
     etab_website = models.URLField(blank=True, null=True)
     
+    class Meta:
+        ordering = ['-start_at']
     def get_start_date(self):
-        return f'{self.start_at.month}/{self.start_at.day}/{self.start_at.year}'
+       return f'{self.start_at.month}/{self.start_at.day}/{self.start_at.year}' if self.start_at  else  ""
     def get_end_date(self):
-        return f'{self.end_at.month}/{self.end_at.day}/{self.end_at.year}'
-        
+        return f'{self.end_at.month}/{self.end_at.day}/{self.end_at.year}' if self.end_at else ""
+
 class ProfExperience(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     type = models.CharField(max_length=120)
@@ -53,9 +57,9 @@ class ProfExperience(models.Model):
     etab_website = models.URLField(blank=True, null=True)
 
     def get_start_date(self):
-        return f'{self.start_at.month}/{self.start_at.day}/{self.start_at.year}'
+        return f'{self.start_at.month}/{self.start_at.day}/{self.start_at.year}' if self.start_at else ""
     def get_end_date(self):
-        return f'{self.end_at.month}/{self.end_at.day}/{self.end_at.year}'
+        return f'{self.end_at.month}/{self.end_at.day}/{self.end_at.year}' if self.end_at else ""
 
 class Project(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

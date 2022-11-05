@@ -257,6 +257,9 @@
     float: left;
     text-align: left;
 }
+input[name='new_password1'], input[name='new_password2']{
+    border: 2px solid var(--primary-color);
+}
 /* ---------------------- footer --------------------------- */
 .footer{
     display: flex;

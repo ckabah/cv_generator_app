@@ -21,7 +21,7 @@
                 flex-direction: column;
             }
             .cv-detail i{
-                margin-right : 10px
+                margin-right : 5px
             }
             .cv-detail h1{
                 color: var(--second-color);
@@ -66,9 +66,10 @@
             .profile .profile-contact{
                 display: flex;
                 flex-direction: row;
+                flex-wrap:wrap;
                 align-items: center;
                 justify-content: center;
-                gap: 5px;
+                gap: 3px;
                 margin-bottom:15px;
             }
             .profile .name h2{
@@ -78,9 +79,9 @@
             }
             .profile .profile-contact li{
                 list-style: none;
-                font-size: 15px;
+                font-size: 14px;
                 font-weight: 600;
-                margin:0 10px;
+                margin:0 5px;
             }
             .tech-detail, .langue-detail{
                 display: flex;
@@ -170,6 +171,8 @@
                                 <li ><i class='fas fa-phone'></i>{{user.profile.phone}}</li>
                                 <li ><i class="fa-solid fa-envelope"></i>{{user.profile.email}}</li>
                                 <li ><i class="fa-solid fa-location-dot"></i>{{user.profile.adress}}</li>
+                                <li ><i class="fa-brands fa-github"></i>{{user.profile.github}}</li>
+                                <li ><i class="fa-regular fa-globe"></i></i>{{user.profile.website}}</li>
                             </div>
                         </div>
                         <div class="profile-bio">
@@ -180,12 +183,12 @@
                 {% endif %}
                 {% if experiences %}
                     <div class="experience">
-                        <h1 class = "title">Eperiences</h1>
+                        <h1 class = "title">Experiences</h1>
                         <div class="experience-content">
                             {% for experience  in experiences %}
                                 <div class="experience-detail">
-                                    <p class = 'title-h2'> <span> {{experience.get_start_date}} - {{experience.get_end_date}}</span></p>
-                                    <p class = 'title-h3'><span>{{experience.company}}</span> | <span>{{experience.poste}}</span></p>
+                                    <p class = 'title-h2'> <span> {{experience.end_at.year}}</p>
+                                    <p class = 'title-h3'><span>{{experience.company}}</span> | <span>website : {{experience.etab_website}}</span> | <span>{{experience.poste}}</span></p>
                                     <p>{{experience.description}}</p>
                                 </div>
                         {% endfor %}
@@ -212,7 +215,7 @@
                         <div class="education-content">
                             <div class="education-detail">
                                 <p class ="title-h2"><span>{{education.start_at.year}} - {{education.end_at.year}}</span> | <span>{{education.etablisement}}</span></p>
-                                <p class ="title-h3"><span >{{education.level}}</span> |<span>{{education.name}}</span></p>
+                                <p class ="title-h3"><span >{{education.level}}</span> | <span>{{education.name}}</span></p>
                                 <p>{{education.description}}</p>
                             </div>
                         </div>

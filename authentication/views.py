@@ -9,7 +9,7 @@ from .utilitis import account_token_generation
 from django.contrib.sites.shortcuts import get_current_site
 from .models import User
 from django.contrib.auth import login, authenticate
-from django.contrib.auth.forms import PasswordResetForm
+from .forms import PasswordResetForm
 from django.contrib.auth.tokens import default_token_generator
 
 def register(request):
@@ -85,7 +85,7 @@ def reset_password(request):
                     'token':default_token_generator.make_token(user)
                 })
                 try:
-                    send_mail(subject=subject, message=message, from_email='cs.ttrx@gmail.com', recipient_list=user_email)
+                    send_mail(subject=subject, message=message, from_email='cs.ttrx@gmail.com', recipient_list=[user_email])
                 except:
-                    pass
+                    return HttpResponse('A problem, verify your mail retry')
     return render(request, 'reset_password.html', context={'reset_form':reset_form})
