@@ -38,7 +38,9 @@ def edit(request, id, model,model_form):
     return edit_form
 
 def get_all_context(request):
-    profile = Profile.objects.filter(user=request.user)[0]
+    profile = Profile.objects.filter(user=request.user)
+    if profile.exists():
+        profile = profile[0]
     experiences = ProfExperience.objects.filter(user=request.user)
     educations = Education.objects.filter(user=request.user)
     langues = Langue.objects.filter(user=request.user)
